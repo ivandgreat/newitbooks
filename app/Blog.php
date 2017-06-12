@@ -3,12 +3,18 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Blog extends Model
 {
     //
-    protected $fillable =
-    ['title',
-     'body'
-    ];
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
+    protected $fillable = ['title','body'];
+
+    // build a relationship with category
+    public function category(){
+      // return $this->belongsToMany(Category::class);
+      return $this->belongsToMany('App\Category');
+    }
 }

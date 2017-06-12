@@ -5,10 +5,11 @@
 <main class="container">
   <div class="container-fluid">
     <div class="jumbotron">
-      <h1>Create a blog posts</h1>
+      <h1>Edit blog post</h1>
     </div>
     <div class="col-sm-8 col-sm-offset-2">
-      {!! Form::open(['method'=>'POST','action'=>'BlogController@store']) !!}
+      {!! Form::model($blog,['method'=>'PATCH','action'=>['BlogController@update',$blog->id]]) !!}
+
         <div class="form-group">
           {!! Form::label("title","Title:") !!}
           {!! Form::text("title",null, ['class'=>'form-control']) !!}
@@ -22,7 +23,12 @@
           {!! Form::select("category_id[]",$categories,null,['id'=>'tag_list','class'=>'form-control','multiple']) !!}
         </div>
         <div class="form-group">
-          {!! Form::submit("Create a Blog",['class'=>'btn btn-primary']) !!}
+          {!! Form::submit("Edit a Blog",['class'=>'btn btn-primary']) !!}
+        </div>
+      {!! Form::close() !!}
+      {!!Form:: open(['method'=>'DELETE','action'=>['BlogController@destroy', $blog->id]])!!}
+        <div class="form-group">
+          {!!Form::submit("Delete Blog",['class'=>'btn btn-danger'])!!}
         </div>
       {!! Form::close() !!}
     </div>
@@ -30,5 +36,7 @@
 </main>
 
 @include('partials.select-2-script')
+
+
 
 @endsection
