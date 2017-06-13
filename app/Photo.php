@@ -8,9 +8,9 @@ class Photo extends Model
 {
     //
     protected $fillable = ['title','photo'];
-    
+
     public function blog(){
-      return $this->belongsto('App\Blog');
+      return $this->belongsTo('App\Blog');
     }
 
 }
