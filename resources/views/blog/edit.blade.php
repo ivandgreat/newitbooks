@@ -8,7 +8,7 @@
       <h1>Edit blog post</h1>
     </div>
     <div class="col-sm-8 col-sm-offset-2">
-      {!! Form::model($blog,['method'=>'PATCH','action'=>['BlogController@update',$blog->id]]) !!}
+      {!! Form::model($blog,['method'=>'PATCH','action'=>['BlogController@update',$blog->id, 'files'=>true]]) !!}
 
         <div class="form-group">
           {!! Form::label("title","Title:") !!}
@@ -17,6 +17,10 @@
         <div class="form-group">
           {!! Form::label("body","Body:") !!}
           {!! Form::textarea("body",null, ['class'=>'form-control']) !!}
+        </div>
+        <div class="form-group">
+          {!! Form::label("photo_id", "Featured Image:") !!}
+          {!! Form::file("photo_id", ['class'=>'form-control']) !!}
         </div>
         <div class="form-group">
           {!! Form::label("category_id", "Category:") !!}

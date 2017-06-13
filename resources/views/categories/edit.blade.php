@@ -27,9 +27,4 @@
   </div>
 </main>
 
-
-
-
-
-
-@stop
+@endsection

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Blog;
 use App\Category;
+use App\Photo;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -29,6 +31,15 @@ class BlogController extends Controller
 
     public function store(Request $request){
       $input = $request->all();
+
+      if($file = $request->file('photo_id')){
+        // $name = Carbon::now() . $file->getClientOriginalName();
+        $name = Carbon::now(). '.' .$file->getClientOriginalName();
+        $file->move('images',$name);
+        $photo = Photo::create(['photo'=>$name, 'title'=>$name]);
+        $input['photo_id']= $photo->id;
+      }
+
       $blog = Blog::create($input);
       if($categoryIds = $request->category_id) {
         $blog->category()->sync($categoryIds);
@@ -57,6 +68,18 @@ class BlogController extends Controller
 
       $input = $request->all();
       $blog = Blog::findOrFail($id);
+
+      if($file = $request->file('photo_id')){
+        if($file->photo){
+          unlink('images/',$blog->photo->photo);
+          $blog->photo()->delete('photo');
+        }
+          $name = Carbon::now(). '.' .$file->getClientOriginalName();
+          $file->move('images',$name);
+          $photo = Photo::create(['photo'=>$name, 'title'=>$name]);
+          $input['photo_id']= $photo->id;
+      }
+
       $blog->update($input);
       if($categoryIds = $request->category_id) {
         $blog->category()->sync($categoryIds);
@@ -70,7 +93,7 @@ class BlogController extends Controller
     public function destroy(Request $request, $id){
       $blog = Blog::findOrFail($id);
       $categoryIds = $request->category_id;
-      $blog->category()-detach($categoryIds);
+      $blog->category()->detach($categoryIds);
       $blog->delete($request->all());
       return redirect('/blog/bin');
     }

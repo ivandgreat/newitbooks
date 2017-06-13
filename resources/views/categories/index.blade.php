@@ -23,10 +23,4 @@
   </div>
 
 </main>
-
-
-
-
-
-
-@stop
+@endsection

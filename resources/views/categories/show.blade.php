@@ -19,10 +19,4 @@
   </div>
 
 </main>
-
-
-
-
-
-
-@stop
+@endsection

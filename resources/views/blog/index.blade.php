@@ -22,9 +22,4 @@
 
 </main>
 
-
-
-
-
-
-@stop
+@endsection

@@ -33,9 +33,4 @@
 
 </main>
 
-
-
-
-
-
-@stop
+@endsection
